@@ -84,7 +84,6 @@ const Endpointss = () => {
           className=" col-md-9  "
           style={{ backgroundColor: lightTheme.lightyellow }}
         >
-
           <div
             class="container"
             style={{ backgroundColor: lightTheme.lightyellow }}
