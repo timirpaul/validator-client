@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +35,70 @@
   to {
     transform: rotate(360deg);
   }
+} */
+
+/*  */
+
+
+
+.jsonCard{
+  margin: auto;
+  display: flex;
+  justify-content: space-around;
+  border: 2px solid #48294875;
+  border-radius: 15px;
+  margin-top: 5px;
+  background-color: white;
 }
+
+
+p{
+  margin: revert;
+  margin-bottom: 1rem;
+}
+
+.btnhover:hover{
+  background-color: rgb(226, 226, 226);
+
+}
+.from_border{
+  /* background-image: url("./img/cglogo.png"); */
+  border-radius: 10px;
+  box-shadow: 12px 15px 20px 9px #acc;
+}
+.signup{
+  border: 1px solid black;
+  border-radius: 10px;
+  margin: 10px;
+}
+.head-col{
+  box-shadow: inset 0px 0px 30px #37bbe0;
+}
+.table-head{
+  background-color: #c1e4ec;
+  height: 40px;
+}
+.scroll{
+  max-height: 150px;
+  overflow-y: scroll;
+}
+
+.close{
+  display: flex;
+    justify-content: right;
+}
+.popup{
+  position: absolute;
+  width: 50%;
+}
+
+.loading{
+  background-color: aqua;
+  height: 20%;
+}
+
+
+.dropdown-menu{
+  --bs-dropdown-link-hover-bg: rgb(127, 183, 235) !important;
+}
+
