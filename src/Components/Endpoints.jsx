@@ -84,35 +84,7 @@ const Endpointss = () => {
           className=" col-md-9  "
           style={{ backgroundColor: lightTheme.lightyellow }}
         >
-          {/* <div
-            className="container mt-3 p-2"
-            style={{ backgroundColor: lightTheme.lightBlue }}
-          >
-            <h3>Endpoints</h3>
 
-            <div className="row d-flex justify-content-center">
-              <div className="col-md-3">
-                <div className="card m-2  p-1 text-center btnhover">
-                  <p>Actions (Edit/save)</p>
-                </div>
-              </div>
-              <div className="col-md-3">
-                <div className="card m-2  p-1 text-center btnhover">
-                  <p>Create</p>
-                </div>
-              </div>
-              <div className="col-md-3">
-                <div className="card m-2  p-1 text-center btnhover">
-                  <p>Delete</p>
-                </div>
-              </div>
-              <div className="col-md-3">
-                <div className="card m-2  p-1 text-center btnhover">
-                  <p>Cancel</p>
-                </div>
-              </div>
-            </div>
-          </div> */}
           <div
             class="container"
             style={{ backgroundColor: lightTheme.lightyellow }}
