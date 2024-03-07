@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import cgLogo from "../img/cglogo.png";
+import pic1 from "../img/Picture1.png";
+import pic2 from "../img/Picture2.png";
 
 const Sidebar = ({name}) => {
   return (

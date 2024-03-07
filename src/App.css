@@ -93,12 +93,20 @@ p{
 }
 
 .loading{
-  background-color: aqua;
-  height: 20%;
+  height: 50%;
+  /* backdrop-filter: blur(10px); */
 }
 
 
 .dropdown-menu{
   --bs-dropdown-link-hover-bg: rgb(127, 183, 235) !important;
+}
+
+/* #drop{
+  width:215px
+} */
+
+a {
+  color: black;
 }
 

@@ -84,7 +84,6 @@ const CreateTask = () => {
       
       setTimeout(()=>{
         navigate("/validationTasks");
-        console.log("nav");
       },2000)
     }
     } catch (error) {
@@ -120,14 +119,15 @@ const CreateTask = () => {
                     </div>
                   </div>
                 </div>
-                <div className="card p-3">
+                <div className="row m-3 p-3" style={{border: "3px solid #a2a9b1" , "border-radius": "20px"}}>
                   <ToastContainer/>
-                  <div className="col-md-10 m-2 d-flex justify-content-center">
-                    <label style={{"width":"50%" ,"padding-left": "5px"}}>Task Name : </label>
+                  <div className=" m-2 d-flex justify-content-center align-items-baseline" >
+                    <h6 style={{"width":"30%" ,"align-items": "baseline"}}>Task Name  </h6>
                     <input
+                    style={{"width":"30%"}}
+                    class="form-control"
                       type="text"
                       placeholder="Name"
-                      style={{ "margin-left": "20px" }}
                       name="task_name"
                       onChange={(e) =>
                         setFromData({
@@ -137,12 +137,14 @@ const CreateTask = () => {
                       }
                     />
                   </div>
-                  <div className="col-md-10 m-2 d-flex justify-content-center">
-                    <label style={{"width":"50%"}}> Source Endpoint : </label>
-                    <MDBDropdown style={{ "margin-left": "20px" }}>
+                  <div className=" m-2 d-flex justify-content-center align-items-baseline">
+                    <h6 style={{"width":"30%"}}> Source Endpoint  </h6>
+                    
+                    <MDBDropdown style={{"width":"30%"}}>
                       <MDBDropdownToggle
-                        tag="a"
+                        tag="div"
                         className="btn btn-outline-secondary"
+                        style={{"width": "215px"}}
                       >
                         {fromData.source_endpoint}
                       </MDBDropdownToggle>
@@ -152,6 +154,7 @@ const CreateTask = () => {
                             key={i}
                             link
                             onClick={(e) => {
+                              // e.preventDefault()
                               setFromData({
                                 ...fromData,
                                 source_endpoint: item?.endpoint_name,
@@ -165,13 +168,16 @@ const CreateTask = () => {
                         ))}
                       </MDBDropdownMenu>
                     </MDBDropdown>
+
+
                   </div>
-                  <div className="col-md-10 m-2 d-flex justify-content-center">
-                   <label style={{"width":"50%"}}>Target Endpoint : </label> 
-                    <MDBDropdown style={{ "margin-left": "20px" }}>
+                  <div className=" m-2 d-flex justify-content-center align-items-baseline">
+                   <h6 style={{"width":"30%"}}>Target Endpoint  </h6> 
+                    <MDBDropdown style={{"width":"30%"}}>
                       <MDBDropdownToggle
                         tag="a"
                         className="btn btn-outline-secondary"
+                        style={{"width": "215px"}}
                       >
                         {fromData.target_endpoint}
                       </MDBDropdownToggle>
@@ -194,12 +200,13 @@ const CreateTask = () => {
                       </MDBDropdownMenu>
                     </MDBDropdown>
                   </div>
-                  <div className="col-md-10 m-2 d-flex justify-content-center">
-                   <label style={{"width":"50%"}}>Table Name : </label> 
-                    <MDBDropdown style={{ "margin-left": "20px" }}>
+                  <div className=" m-2 d-flex justify-content-center align-items-baseline">
+                   <h6 style={{"width":"30%"}}>Table Name  </h6> 
+                    <MDBDropdown style={{"width":"30%"}}>
                       <MDBDropdownToggle
                         tag="a"
                         className="btn btn-outline-secondary"
+                        style={{"width": "215px"}}
                       >
                         {fromData.table_name}
                       </MDBDropdownToggle>
@@ -218,10 +225,10 @@ const CreateTask = () => {
                       </MDBDropdownMenu>
                     </MDBDropdown>
                   </div>
-                  {!fromData?.task_name.length && (
+                  {/* {!fromData?.task_name.length && (
                     <p className="text-danger">Please Fill All Inputs</p>
-                  )}
-                  <div className="col-md-10 d-flex justify-content-center">
+                  )} */}
+                  <div className=" d-flex justify-content-center align-items-baseline">
                     <button
                       className="btn btn-primary m-3"
                       onClick={(e) => navigate("/validationTasks")}

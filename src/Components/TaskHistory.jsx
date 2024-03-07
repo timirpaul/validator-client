@@ -4,10 +4,13 @@ import Sidebar from "./Sidebar";
 import axios from "axios";
 import { getApiData } from "../apidata/api";
 import UserLogoutCard from "./UserLogoutCard";
+import SearchCard from "./SearchCard";
 
 const TaskHistory = () => {
   const [data, setData] = useState({});
   const [apiJsonData, setApiJsonData] = useState([]);
+    const [search, setSearch] = useState({pattern:'' , class:'hist'});
+
 
   const getTaskHistory = async()=>{
     const res = await getApiData("/getHists",data)
@@ -15,28 +18,11 @@ const TaskHistory = () => {
     setApiJsonData(res?.data);
   }
 
-  // const getApiData1= async() =>{
-  //   try {
-  //     const res = await axios.post(
-  //       `${process.env.REACT_APP_API_KEY}/getHists`,
-  //       data,
-  //       {
-  //         maxBodyLength: Infinity,
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       }
-  //     );
-  //     console.log(res?.data);
-  //     setApiJsonData(res?.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+
   useEffect(() => {
-    // getApiData();
     getTaskHistory()
   }, []);
+  
   const downloadtxtfile = (data) => {
     try {
       console.log("click");
@@ -78,6 +64,9 @@ const TaskHistory = () => {
                   </div>
                 </div>
 
+                  <div className="col-md-12 d-flex align-items-center" style={{ "justify-content": "end" }}>
+                    <SearchCard search={search} setSearch={setSearch} setApiJsonData={setApiJsonData}/>
+                    </div>
 
                 <div className="row mt-3">
                   <table className="table p-2 table-responsive table-bordered border-dark text-center ">
@@ -87,7 +76,7 @@ const TaskHistory = () => {
                       <th>Exe End Time</th>
                       <th>Action</th>
                     </tr>
-                    {apiJsonData?.length < 1
+                    {!apiJsonData?.length
                       ? "No data"
                       : apiJsonData?.map((item, i) => (
                           <tr key={i}>

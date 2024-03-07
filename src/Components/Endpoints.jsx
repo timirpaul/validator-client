@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { lightTheme } from "../utils/Color";
 import Sidebar from "./Sidebar";
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
 import {
   MDBDropdown,
   MDBDropdownMenu,
@@ -11,16 +13,16 @@ import axios from "axios";
 import UserLogoutCard from "./UserLogoutCard";
 import { Link } from "react-router-dom";
 import { getApiData } from "../apidata/api";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import SearchCard from "./SearchCard";
 
 const Endpointss = () => {
   const [apiJsonData, setApiJsonData] = useState([]);
   const [selectEndpoint, setSelectEndpoint] = useState();
   const [btnDisable, setBtnDisable] = useState(true);
 
-
-
+  const [search, setSearch] = useState({ pattern: "", class: "endpoint" });
 
   const [data, setData] = useState({});
 
@@ -46,28 +48,31 @@ const Endpointss = () => {
 
   const radioOnChange = (data) => {
     console.log(data);
-    setBtnDisable(false)
+    setBtnDisable(false);
     setSelectEndpoint(data);
   };
 
   useEffect(() => {
     getData();
-    setBtnDisable(true)
+    setBtnDisable(true);
   }, []);
 
-  const handleTest =async (e)=>{
-    e.stopPropagation();
+  const handleTest = async (e) => {
+    // e.stopPropagation();
+    e.preventDefault()
     try {
       console.log("test");
-      const res = await getApiData("/testConn",
-      {ep_type:selectEndpoint?.endpoint_type ,db_type:selectEndpoint?.database_type ,
-        ep_json:selectEndpoint?.endpoint_json})
+      const res = await getApiData("/testConn", {
+        ep_type: selectEndpoint?.endpoint_type,
+        db_type: selectEndpoint?.database_type,
+        ep_json: selectEndpoint?.endpoint_json,
+      });
       console.log(res?.data);
-      toast.success(res?.data?.message)
+      toast.success(res?.data?.message);
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   console.log(apiJsonData);
   console.log(selectEndpoint);
@@ -90,7 +95,7 @@ const Endpointss = () => {
           >
             <div className="row">
               <div className="col-12 ">
-                <UserLogoutCard/>
+                <UserLogoutCard />
                 <div className="d-flex justify-content-center">
                   <div className="col-md-12 ">
                     <div className="card m-3  p-1 text-center head-col">
@@ -99,30 +104,71 @@ const Endpointss = () => {
                   </div>
                 </div>
                 <div className="d-flex justify-content-center">
-                  <div className="col-md-10 ">
+                  {/* <ToastContainer/> */}
+                  <div
+                    className="col-md-10 d-flex align-items-center"
+                    style={{ "justify-content": "space-between" }}
+                  >
                     <div className="m-3">
-                      <MDBDropdown>
+                      {/* <MDBDropdown>
                         <MDBDropdownToggle tag="a" className="btn btn-primary">
                           Action
                         </MDBDropdownToggle>
                         <MDBDropdownMenu>
-                          <MDBDropdownItem link disabled={btnDisable} onClick={handleTest}>Test</MDBDropdownItem>
-                          <Link to={"endpointscard"} style={{"text-decoration":"none"}}>
-                          <MDBDropdownItem link>Create</MDBDropdownItem>
+                          <MDBDropdownItem
+                            link
+                            disabled={btnDisable}
+                            onClick={handleTest}
+                          >
+                            Test
+                          </MDBDropdownItem>
+                          <Link
+                            to={"endpointscard"}
+                            style={{ "text-decoration": "none" }}
+                          >
+                            <MDBDropdownItem link>Create</MDBDropdownItem>
                           </Link>
 
-                          <MDBDropdownItem link disabled={btnDisable}>Edit</MDBDropdownItem>
-                          <MDBDropdownItem link disabled={btnDisable}>Delete</MDBDropdownItem>
+                          <MDBDropdownItem link disabled={btnDisable}>
+                            Edit
+                          </MDBDropdownItem>
+                          <MDBDropdownItem link disabled={btnDisable}>
+                            Delete
+                          </MDBDropdownItem>
                         </MDBDropdownMenu>
-                      </MDBDropdown>
+                      </MDBDropdown> */}
+
+
+
+                      <DropdownButton
+                        id="dropdown-basic-button"
+                        title="Action"
+                      >
+                        <Dropdown.Item disabled={btnDisable} onClick={handleTest}>Test</Dropdown.Item>
+                        <Dropdown.Item>
+                        <Link
+                            to={"endpointscard"}
+                            style={{ "text-decoration": "none" }}
+                            >
+                            
+                          Create
+                          </Link>
+                          </Dropdown.Item>
+                        <Dropdown.Item disabled={btnDisable}>Edit</Dropdown.Item>
+                        <Dropdown.Item disabled={btnDisable}>Delete</Dropdown.Item>
+                      </DropdownButton>
+
+
                     </div>
+                    <SearchCard
+                      search={search}
+                      setSearch={setSearch}
+                      setApiJsonData={setApiJsonData}
+                    />
                   </div>
                 </div>
 
-
-
                 <div className="row ">
-                  <ToastContainer/>
                   <table className="table p-2 table-responsive table-bordered border-dark  ">
                     <tr className=" table-active table-head">
                       <th>Select</th>
@@ -130,7 +176,7 @@ const Endpointss = () => {
                       <th>Database Type</th>
                       <th>Endpoint Type</th>
                     </tr>
-                    {apiJsonData === []
+                    {!apiJsonData?.length
                       ? "No data"
                       : apiJsonData.map((item, i) => (
                           <tr key={i}>
@@ -139,7 +185,7 @@ const Endpointss = () => {
                                 <input
                                   type="radio"
                                   name="task"
-                                  onChange={(e)=>radioOnChange(item)}
+                                  onChange={(e) => radioOnChange(item)}
                                   value={item}
                                 />
                               </div>

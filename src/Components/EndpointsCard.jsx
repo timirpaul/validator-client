@@ -112,20 +112,19 @@ const EndpointsCard = () => {
                     </div>
                   </div>
                 </div>
-                <div className="card p-3">
-                <div className="container mt-3">
+                <div 
+                className="row m-3 p-3" style={{border: "3px solid #a2a9b1" , "border-radius": "20px"}}
+                >
                   <ToastContainer/>
                   {/* 2nd side */}
                   <div
                     className=" col-md-12"
-                    // style={{ backgroundColor: lightTheme.lightBlue }}
                   >
                     <div
-                      className="container mt-1 d-flex "
-                      style={{ "justify-content": "space-around" }}
+                      className=" mt-4 d-flex "
                     >
-                      <label className="mt-2 ">Endpoints Type </label>
-                      <div>
+                      <h6 style={{"width":"30%"}}>Endpoints Type </h6>
+                      <div className="d-flex justify-content-center">
                         <input
                           type="radio"
                           id="source"
@@ -134,13 +133,12 @@ const EndpointsCard = () => {
                           value="Source"
                         />
                         <label
-                          className="m-2"
-                          style={{ color: "#D61A0C", fontWeight: "bold" }}
+                          style={{ color: "#D61A0C", fontWeight: "bold" ,"padding-left": "20px"}}
                         >
                           Source
                         </label>
                       </div>
-                      <div>
+                      <div className="d-flex justify-content-end" style={{"width":"30%"}}>
                         <input
                           type="radio"
                           id="target"
@@ -149,8 +147,7 @@ const EndpointsCard = () => {
                           value="Sink"
                         />
                         <label
-                          className="m-2"
-                          style={{ color: "#D61A0C", fontWeight: "bold" }}
+                          style={{ color: "#D61A0C", fontWeight: "bold" ,"padding-left": "20px" }}
                         >
                           Target
                         </label>
@@ -158,13 +155,14 @@ const EndpointsCard = () => {
                     </div>
 
                     <div
-                      className="container mt-1 d-flex "
-                      style={{ "justify-content": "space-around" }}
+                      className=" mt-4 d-flex "
                     >
-                      <div>
-                        <label className="m-2">Endpoit Name :</label>
+                      <div style={{"width": "50%" , "display": "flex" , "justify-content": "space-between"}}>
+                        <h6 className="d-flex align-items-center">Endpoint Name </h6>
                         <input
                           type="text"
+                          class="form-control"
+                          style={{"width": "200px"}}
                           id="name"
                           name="name"
                           onChange={handleInputChange}
@@ -172,11 +170,12 @@ const EndpointsCard = () => {
                         />
                       </div>
                       <div className=" d-flex justify-content-center">
-                        <label className="m-1"> Database Type :</label>
-                        <MDBDropdown style={{ "margin-left": "20px" }}>
+                        <h6 className="m-1"> Database Type </h6>
+                        <MDBDropdown style={{ "margin-left": "20px" ,"width":"30%" }}>
                           <MDBDropdownToggle
                             tag="a"
                             className="btn btn-outline-secondary"
+                            style={{"width": "150px"}}
                           >
                             {post?.type}
                           </MDBDropdownToggle>
@@ -197,10 +196,10 @@ const EndpointsCard = () => {
                       </div>
                     </div>
 
-                    <div className="container m-2 d-flex  justify-content-center">
-                    <div className=" col-md-3">Endpoint Details in JSON :</div>
+                    <div className="mt-4 d-flex">
+                    <h6 style={{"width": "22%"}}>Endpoint Details in JSON </h6>
                       <textarea
-                        className="m-1 p-2 col-md-8"
+                        style={{"width": "72%" , "min-height": "166px"}}
                         type="text"
                         name="input"
                         value={post.input}
@@ -209,7 +208,7 @@ const EndpointsCard = () => {
                         }
                       />
                     </div>
-                    <div className="col-md-10 d-flex justify-content-center">
+                    <div className="col-md-10 mt-4 d-flex " style={{"justify-content":"space-around"}}>
                   <button className="btn btn-primary m-3" onClick={handleTest}> Test</button>
                   <button className="btn btn-primary m-3" onClick={handleSubmit} > Save</button>
                   <button className="btn btn-primary m-3" onClick={(e)=>navigate("/endpoints")}>Cancel</button>
@@ -222,7 +221,6 @@ const EndpointsCard = () => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
