@@ -60,7 +60,7 @@ const ValidationTasks = () => {
       const res = await getApiData("/execTask", {
         task: selectTask?.task_name,
       });
-      // console.log(res?.data);
+      console.log(res?.data);
       setApiTaskLog(res?.data);
       toast.success("Execute Successfully");
     } catch (error) {
