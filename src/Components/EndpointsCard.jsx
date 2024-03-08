@@ -29,7 +29,7 @@ const EndpointsCard = () => {
   const getDbType =async ()=>{
     try {
       const res = await getApiData("/getDBtype",{ep_type:post?.toggleOption})
-      console.log(res?.data);
+      // console.log(res?.data);
       setApiJsonData(res?.data)
     } catch (error) {
       console.log(error);
@@ -56,7 +56,7 @@ const EndpointsCard = () => {
       const res = await getApiData("/creSecrets",{endpoint_name:post?.name ,database_type:post?.type ,endpoint_type:post?.toggleOption,
         endpoint_json:JSON.parse(post.input)
       })
-      console.log(res?.data?.ERROR);
+      // console.log(res?.data?.ERROR);
       if(res?.data?.ERROR){
         toast.error(res?.data?.ERROR)
       }else{
@@ -76,16 +76,16 @@ const EndpointsCard = () => {
       if(!post.input) return toast.error("write Endpoint Details in JSON")
       const inputJSON =JSON.parse(post.input)
       const res = await getApiData("/testConn",{ep_type:post?.toggleOption ,db_type:post?.type ,ep_json:inputJSON})
-      console.log(res?.data?.ERROR);
+      // console.log(res?.data?.ERROR);
       toast.success(res?.data?.message)
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toast.success(error)
     }
   }
 
-  console.log(post);
-  console.log(apiJsonData);
+  // console.log(post);
+  // console.log(apiJsonData);
   return (
     <div className="container mt-3">
       <div className="row ">

@@ -33,7 +33,7 @@ const CreateTask = () => {
     try {
       const res = await getApiData("/getEndpoints", { ep_type: "Source" });
       setSourceEndpoint(res?.data);
-      console.log(res?.data);
+      // console.log(res?.data);
     } catch (error) {
       console.log(error);
     }
@@ -42,7 +42,7 @@ const CreateTask = () => {
     try {
       const res = await getApiData("/getEndpoints", { ep_type: "Sink" });
       setTargetEndpoint(res?.data);
-      console.log(res?.data);
+      // console.log(res?.data);
     } catch (error) {
       console.log(error);
     }
@@ -53,7 +53,7 @@ const CreateTask = () => {
         source_ep: sourceEndpoint,
       });
       setTableName(res?.data?.tables);
-      console.log(res?.data?.tables);
+      // console.log(res?.data?.tables);
     } catch (error) {
       console.log(error);
     }
@@ -76,7 +76,7 @@ const CreateTask = () => {
         secret_id_sink: fromData?.secret_id_sink,
         table_name: fromData?.table_name,
       });
-      console.log(res?.data);
+      // console.log(res?.data);
       if(res?.data.ERROR) {
         toast.error(res?.data?.ERROR)
       }else{

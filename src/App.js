@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 import Private from "./private/Private";
 function App() {
   const islogin = useSelector((state) => state.loginChecker.value);
-  console.log(islogin);
+  // console.log(islogin);
 
   return (
     <>

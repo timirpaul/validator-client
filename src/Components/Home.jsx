@@ -36,25 +36,25 @@ const Home = () => {
           user?.password != loginData?.password
         ){
           return (
-            console.log(user),
+            // console.log(user),
             setInvalidLogin(true)
             );
           }
             dispatch(login())
             setInvalidLogin(false)
             navigate("/landing")
-            console.log("login" ,islogin)
+            // console.log("login" ,islogin)
             
             // }, 2000);
           } catch (error) {
             setBtn(false);
-            console.log(error);
+            // console.log(error);
           }finally{
             setBtn(false)
           }
   };
-  console.log(user);
-  console.log(loginData.email);
+  // console.log(user);
+  // console.log(loginData.email);
   return (
     <>
       <section className="" style={{ backgroundColor: lightTheme.lightgreen }}>

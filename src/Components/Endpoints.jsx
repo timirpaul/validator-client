@@ -37,7 +37,7 @@ const Endpointss = () => {
         data,
         { headers: header }
       );
-      console.log(res?.data);
+      // console.log(res?.data);
       setApiJsonData(res?.data);
 
       return res;
@@ -47,7 +47,7 @@ const Endpointss = () => {
   };
 
   const radioOnChange = (data) => {
-    console.log(data);
+    // console.log(data);
     setBtnDisable(false);
     setSelectEndpoint(data);
   };
@@ -67,15 +67,15 @@ const Endpointss = () => {
         db_type: selectEndpoint?.database_type,
         ep_json: selectEndpoint?.endpoint_json,
       });
-      console.log(res?.data);
+      // console.log(res?.data);
       toast.success(res?.data?.message);
     } catch (error) {
       console.log(error);
     }
   };
 
-  console.log(apiJsonData);
-  console.log(selectEndpoint);
+  // console.log(apiJsonData);
+  // console.log(selectEndpoint);
   return (
     <div className="container mt-3">
       <div className="row ">

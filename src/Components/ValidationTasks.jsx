@@ -28,11 +28,11 @@ const ValidationTasks = () => {
   const [selectTask, setSelectTask] = useState({});
   const [excBtnDisable, setExcBtnDisable] = useState(true);
 
-  console.log(selectTask);
-  console.log("search", search);
+  // console.log(selectTask);
+  // console.log("search", search);
 
   const radioOnChange = (data) => {
-    console.log(data);
+    // console.log(data);
     setExcBtnDisable(false);
     setSelectTask(data);
   };
@@ -40,7 +40,7 @@ const ValidationTasks = () => {
   const getApiTask = async () => {
     try {
       const res = await getApiData("/getTasks", {});
-      console.log(res?.data);
+      // console.log(res?.data);
       setApiJsonData(res?.data);
     } catch (error) {
       console.log(error);
@@ -52,7 +52,7 @@ const ValidationTasks = () => {
     setExcBtnDisable(true);
   }, []);
 
-  console.log(loading);
+  // console.log(loading);
   const getApiLog = async (e) => {
     e.preventDefault()
     try {
@@ -60,11 +60,11 @@ const ValidationTasks = () => {
       const res = await getApiData("/execTask", {
         task: selectTask?.task_name,
       });
-      console.log(res?.data);
+      // console.log(res?.data);
       setApiTaskLog(res?.data);
       toast.success("Execute Successfully");
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }finally{
       setLoading(false);
     }
@@ -81,11 +81,11 @@ const ValidationTasks = () => {
   const deleteFunction = async (e) => {
     e.preventDefault()
     try {
-      console.log("deleteFunction click", selectTask?.task_id);
+      // console.log("deleteFunction click", selectTask?.task_id);
       const res = await getApiData("/delTasks", { id: selectTask?.task_id });
-      console.log(res?.data);
+      // console.log(res?.data);
       await getApiTask();
-      console.log(apiJsonData);
+      // console.log(apiJsonData);
       toast.success(res?.data?.message);
     } catch (error) {
       console.log(error);
@@ -95,13 +95,13 @@ const ValidationTasks = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(search);
+      // console.log(search);
       const res = await getApiData("/searchData", search);
-      console.log(res?.data);
+      // console.log(res?.data);
       toast.success("search complete");
       setApiJsonData(res?.data);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toast.error(error);
     }
   };

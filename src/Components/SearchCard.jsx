@@ -4,21 +4,21 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const SearchCard = ({ search, setSearch, setApiJsonData }) => {
 
-    console.log(search);
+    // console.log(search);
     
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(search);
+    //   console.log(search);
       const res = await getApiData("/searchData", search);
-      console.log(res?.data);
+    //   console.log(res?.data);
       setApiJsonData(res?.data);
       toast.success("search complete");
 
       return res;
     } catch (error) {
-      console.log(error);
+    //   console.log(error);
       return error;
     }
   };

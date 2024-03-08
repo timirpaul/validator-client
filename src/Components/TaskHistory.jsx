@@ -14,7 +14,7 @@ const TaskHistory = () => {
 
   const getTaskHistory = async()=>{
     const res = await getApiData("/getHists",data)
-    console.log(res?.data);
+    // console.log(res?.data);
     setApiJsonData(res?.data);
   }
 
@@ -22,7 +22,7 @@ const TaskHistory = () => {
   useEffect(() => {
     getTaskHistory()
   }, []);
-  
+
   const downloadtxtfile = (data) => {
     try {
       console.log("click");
@@ -35,7 +35,7 @@ const TaskHistory = () => {
       console.log(error);
     }
   };
-  console.log(apiJsonData);
+  // console.log(apiJsonData);
   return (
     <div className="container mt-3">
       <div className="row ">
