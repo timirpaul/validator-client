@@ -24,7 +24,6 @@ const Endpointss = () => {
 
   const [search, setSearch] = useState({ pattern: "", class: "endpoint" });
 
-  const [data, setData] = useState({});
 
   const getData = async () => {
     try {
@@ -34,7 +33,7 @@ const Endpointss = () => {
       };
       const res = await axios.post(
         `${process.env.REACT_APP_API_KEY}/getSecrets`,
-        data,
+        {},
         { headers: header }
       );
       // console.log(res?.data);
@@ -73,6 +72,20 @@ const Endpointss = () => {
       console.log(error);
     }
   };
+
+  const deleteFunction = async (e)=>{
+    e.preventDefault()
+    try {
+      console.log("deleteFunction click", selectEndpoint?.secret_id);
+      const res = await getApiData("/delSecrets", { id: selectEndpoint?.secret_id });
+      console.log(res?.data);
+      await getData();
+      console.log(apiJsonData);
+      toast.success(res?.data?.message);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   // console.log(apiJsonData);
   // console.log(selectEndpoint);
@@ -155,7 +168,7 @@ const Endpointss = () => {
                           </Link>
                           </Dropdown.Item>
                         <Dropdown.Item disabled={btnDisable}>Edit</Dropdown.Item>
-                        <Dropdown.Item disabled={btnDisable}>Delete</Dropdown.Item>
+                        <Dropdown.Item disabled={btnDisable} onClick={deleteFunction}>Delete</Dropdown.Item>
                       </DropdownButton>
 
 

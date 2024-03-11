@@ -27,12 +27,14 @@ const ValidationTasks = () => {
   const [search, setSearch] = useState({ pattern: "", class: "task" });
   const [selectTask, setSelectTask] = useState({});
   const [excBtnDisable, setExcBtnDisable] = useState(true);
+  // const [checked, setChecked] = useState(false);
 
   // console.log(selectTask);
   // console.log("search", search);
 
   const radioOnChange = (data) => {
-    // console.log(data);
+    // setChecked(!checked)
+    console.log(data);
     setExcBtnDisable(false);
     setSelectTask(data);
   };
@@ -60,7 +62,7 @@ const ValidationTasks = () => {
       const res = await getApiData("/execTask", {
         task: selectTask?.task_name,
       });
-      console.log(res?.data);
+      // console.log(res?.data);
       setApiTaskLog(res?.data);
       toast.success("Execute Successfully");
     } catch (error) {
@@ -230,7 +232,7 @@ const ValidationTasks = () => {
                 )}
                 <div className="row ">
                   <table className="table p-2 table-responsive table-bordered border-dark  ">
-                    <tr className=" table-active table-head">
+                    <tr className=" table-active table-head text-center">
                       <th>Select</th>
                       <th>Task Name</th>
                       <th>Source Table</th>
@@ -250,11 +252,12 @@ const ValidationTasks = () => {
                                   onChange={(e) => radioOnChange(item)}
                                   // value={item?.task_name}
                                   value={item}
+                                  // checked={checked}
                                 />
                               </div>
                             </td>
                             <td>
-                              <div>{item?.task_name}</div>
+                              <div >{item?.task_name}</div>
                             </td>
                             <td>
                               <div>{item?.source_table}</div>

@@ -2,14 +2,14 @@ import { stringify } from "qs";
 import React, { useState } from "react";
 
 const ValidationLog = ({ data ,fileName ,setApiTaskLog }) => {
-  // console.log(data.logstream);
-  // console.log(fileName);
+  console.log(data.logstream);
+  console.log(fileName);
 
   const downloadtxtfile = (e) => {
     e.preventDefault();
     try {
       console.log("click");
-      const url = window.URL.createObjectURL(new Blob(["status : ",data?.status,"\nlogstream : ",  data.logstream.join(" ")]));
+      const url = window.URL.createObjectURL(new Blob(["status : ",data?.status,"\nlogstream : ",  data.logstream]));
       let a = document.createElement("a");
       a.href = url;
       a.download = fileName ? `${fileName}.txt` : "tasklog.txt";
