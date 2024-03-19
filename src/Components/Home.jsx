@@ -7,13 +7,14 @@ import { lightTheme } from "../utils/Color";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../reducers/loginSlice";
-
+import { getApiData } from "../apidata/api";
+import { ToastContainer, toast } from "react-toastify";
 
 const Home = () => {
-  const islogin = useSelector((state) => state.loginChecker.value)
+  const islogin = useSelector((state) => state.loginChecker.value);
 
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [isSignup, setIsSignup] = useState(false);
   const [btn, setBtn] = useState(false);
   const [invalidLogin, setInvalidLogin] = useState(false);
@@ -26,32 +27,34 @@ const Home = () => {
     e.preventDefault();
     setUser({ ...user, [e.target.name]: e.target.value });
   };
-  const handleSubmit = (e) => {
+
+  const loginApi = async (e) => {
     e.preventDefault();
     try {
       setBtn(true);
-      // setTimeout(() => {
-        if (
-          user?.username != loginData?.username ||
-          user?.password != loginData?.password
-        ){
-          return (
-            // console.log(user),
-            setInvalidLogin(true)
-            );
-          }
-            dispatch(login())
-            setInvalidLogin(false)
-            navigate("/landing")
-            // console.log("login" ,islogin)
-            
-            // }, 2000);
-          } catch (error) {
-            setBtn(false);
-            // console.log(error);
-          }finally{
-            setBtn(false)
-          }
+      const res = await getApiData("/getAuth", {
+        username: user?.username,
+        password: user?.password,
+      });
+      // console.log(res);
+      if (res?.data?.status === 1) {
+        return (
+          toast.success(res?.data?.message),
+          dispatch(login()),
+          setInvalidLogin(false),
+          window.localStorage.setItem("isLogin", true),
+          setTimeout(() => {
+            navigate("/landing");
+          }, 1000)
+        );
+      }
+      toast.error(res?.data?.ERROR)
+      setInvalidLogin(true);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setBtn(false);
+    }
   };
   // console.log(user);
   // console.log(loginData.email);
@@ -65,14 +68,14 @@ const Home = () => {
                 <div className="row g-0">
                   <div className="col-md-6 col-lg-5 d-none d-md-block">
                     <div className="d-flex justify-content-center mt-5">
-
-                    <img
-                      src={cgLogo}
-                      alt="login form"
-                      className="img-fluid"
-                      style={{ borderRadius: "1rem 0 0 1rem" }}
+                      <ToastContainer />
+                      <img
+                        src={cgLogo}
+                        alt="login form"
+                        className="img-fluid"
+                        style={{ borderRadius: "1rem 0 0 1rem" }}
                       />
-                      </div>
+                    </div>
                     <img
                       src={validatorLogo}
                       alt="login form"
@@ -82,25 +85,27 @@ const Home = () => {
                   </div>
                   <div className="col-md-6 col-lg-7 d-flex align-items-center">
                     <div className="card-body p-4 p-lg-5 text-black">
-                      <form
-                       onSubmit={handleSubmit}
-                       >
+                      <form onSubmit={loginApi}>
                         <div className="d-flex align-items-center mb-3 pb-1">
                           <i
                             className="fas fa-cubes fa-2x me-3"
                             style={{ color: "#ff6219" }}
                           />
-                          <span className="h1 fw-bold mb-0">Data Validator</span>
+                          <span className="h1 fw-bold mb-0">
+                            Data Validator
+                          </span>
                         </div>
                         {invalidLogin && (
-                          <label className="text-danger fw-bold">invalid credentials</label>
+                          <label className="text-danger fw-bold">
+                            invalid credentials
+                          </label>
                         )}
                         <div className="form-outline mb-4">
                           <label
                             className="form-label"
                             htmlFor="form2Example17"
                           >
-                           Username
+                            Username
                           </label>
                           <input
                             type="text"

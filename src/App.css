@@ -97,6 +97,13 @@ p{
   /* backdrop-filter: blur(10px); */
 }
 
+.hide_scroll{
+  width: 18rem;
+  overflow-x: auto;
+  scrollbar-width: none; 
+}
+
+
 
 .dropdown-menu{
   --bs-dropdown-link-hover-bg: rgb(127, 183, 235) !important;
@@ -109,4 +116,8 @@ p{
 a {
   color: black;
 }
+
+
+
+
 

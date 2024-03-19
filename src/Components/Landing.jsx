@@ -18,7 +18,10 @@ const Landing = () => {
           // className="row col-md-9 p-8"
           style={{ backgroundColor: lightTheme.lightyellow }}
         >
-          <h3>Welcome to the SQL to No SQL Data Validator Console.</h3>
+          <div>
+          <h1>Welcome </h1>
+          <h1>Data Validator Console </h1>
+          </div>
           {/* <img
             src={validatorLogo}
             alt="login form"

@@ -5,6 +5,8 @@ import axios from "axios";
 import { getApiData } from "../apidata/api";
 import UserLogoutCard from "./UserLogoutCard";
 import SearchCard from "./SearchCard";
+import download from "../img/download.ico"
+import { Clock, Download, Loader } from 'react-feather';
 
 const TaskHistory = () => {
   const [data, setData] = useState({});
@@ -63,7 +65,6 @@ const TaskHistory = () => {
                     </div>
                   </div>
                 </div>
-
                   <div className="col-md-12 d-flex align-items-center" style={{ "justify-content": "end" }}>
                     <SearchCard search={search} setSearch={setSearch} setApiJsonData={setApiJsonData}/>
                     </div>
@@ -72,8 +73,9 @@ const TaskHistory = () => {
                   <table className="table p-2 table-responsive table-bordered border-dark text-center ">
                     <tr className=" table-active table-head">
                       <th>Task Name</th>
-                      <th>Source Table</th>
+                      <th>Status</th>
                       <th>Exe End Time</th>
+                      <th>Message</th>
                       <th>Action</th>
                     </tr>
                     {!apiJsonData?.length
@@ -82,17 +84,23 @@ const TaskHistory = () => {
                           <tr key={i}>
                             
                             <td>
-                              <div>{item?.task_name}</div>
+                              <div className="hide_scroll">{item?.task_name}</div>
                             </td>
                             <td>
                               <div>{item?.task_status}</div>
                             </td>
                             <td>
-                              <div>{(item?.task_end).substring(0,19).replace("T"," ")}</div>
+                              <div>{(item?.task_end)?.substring(0,19)?.replace("T"," ")}</div>
                             </td>
                             <td>
-                              <div>
-                                <button onClick={(e)=>downloadtxtfile(item)}>download </button>
+                              <div>{item?.task_message}</div>
+                            </td>
+                            <td>
+                              <div style={{"width":"5rem"}}>
+                                {item?.task_status === "Running" ? <Clock/> :
+                                <div onClick={(e)=>downloadtxtfile(item)}><Download size="30px"  /></div>
+                                // <button onClick={(e)=>downloadtxtfile(item)}><DownloadCloud  /> </button>
+                                }
                               </div>
                             </td>
                           </tr>

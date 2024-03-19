@@ -16,7 +16,7 @@ const EndpointsCard = () => {
 
   const navigate = useNavigate()
 
-  const [apiJsonData, setApiJsonData] = useState();
+  const [apiJsonData, setApiJsonData] = useState([]);
 
 
   const [post, setPost] = useState({
@@ -28,7 +28,7 @@ const EndpointsCard = () => {
 
   const getDbType =async ()=>{
     try {
-      const res = await getApiData("/getDBtype",{ep_type:post?.toggleOption})
+      const res = await getApiData("/getDBtype",{"ep_type":post?.toggleOption})
       // console.log(res?.data);
       setApiJsonData(res?.data)
     } catch (error) {
@@ -52,7 +52,7 @@ const EndpointsCard = () => {
   const handleSubmit =async()=>{
     try {
       console.log("save");
-      console.log(JSON.parse(post.input));
+      // console.log(JSON.parse(post.input));
       const res = await getApiData("/creSecrets",{endpoint_name:post?.name ,database_type:post?.type ,endpoint_type:post?.toggleOption,
         endpoint_json:JSON.parse(post.input)
       })
@@ -113,7 +113,7 @@ const EndpointsCard = () => {
                   </div>
                 </div>
                 <div 
-                className="row m-3 p-3" style={{border: "3px solid #a2a9b1" , "border-radius": "20px"}}
+                className="row m-3 p-3" style={{border: "3px solid #a2a9b1" , borderRadius: "20px"}}
                 >
                   <ToastContainer/>
                   {/* 2nd side */}

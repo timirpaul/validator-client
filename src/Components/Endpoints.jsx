@@ -17,7 +17,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SearchCard from "./SearchCard";
 
-const Endpointss = () => {
+const Endpoints = () => {
   const [apiJsonData, setApiJsonData] = useState([]);
   const [selectEndpoint, setSelectEndpoint] = useState();
   const [btnDisable, setBtnDisable] = useState(true);
@@ -76,11 +76,11 @@ const Endpointss = () => {
   const deleteFunction = async (e)=>{
     e.preventDefault()
     try {
-      console.log("deleteFunction click", selectEndpoint?.secret_id);
+      // console.log("deleteFunction click", selectEndpoint?.secret_id);
       const res = await getApiData("/delSecrets", { id: selectEndpoint?.secret_id });
-      console.log(res?.data);
+      // console.log(res?.data);
       await getData();
-      console.log(apiJsonData);
+      // console.log(apiJsonData);
       toast.success(res?.data?.message);
     } catch (error) {
       console.log(error);
@@ -158,13 +158,12 @@ const Endpointss = () => {
                         title="Action"
                       >
                         <Dropdown.Item disabled={btnDisable} onClick={handleTest}>Test</Dropdown.Item>
-                        <Dropdown.Item>
+                        <Dropdown.Item to="endpointscard">
                         <Link
-                            to={"endpointscard"}
+                            to="endpointscard"
                             style={{ "text-decoration": "none" }}
                             >
-                            
-                          Create
+                          Create Endpoint
                           </Link>
                           </Dropdown.Item>
                         <Dropdown.Item disabled={btnDisable}>Edit</Dropdown.Item>
@@ -225,4 +224,4 @@ const Endpointss = () => {
   );
 };
 
-export default Endpointss;
+export default Endpoints;

@@ -12,6 +12,7 @@ const UserLogoutCard = () => {
         e.preventDefault()
         try {
             dispatch(logout())
+            window.localStorage.removeItem("isLogin")
             navigate("/")
         } catch (error) {
             console.log(error);

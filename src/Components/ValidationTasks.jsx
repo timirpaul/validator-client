@@ -11,7 +11,7 @@ import {
 } from "mdb-react-ui-kit";
 import ValidationLog from "./ValidationLog";
 import Loading from "./Loading";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import UserLogoutCard from "./UserLogoutCard";
 import { getApiData } from "../apidata/api";
 import { ToastContainer, toast } from "react-toastify";
@@ -19,24 +19,26 @@ import "react-toastify/dist/ReactToastify.css";
 import SearchCard from "./SearchCard";
 
 const ValidationTasks = () => {
+  const navigate = useNavigate()
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({});
 
   const [apiJsonData, setApiJsonData] = useState([]);
-  const [apiTaskLog, setApiTaskLog] = useState("");
+  const [apiTaskLog, setApiTaskLog] = useState();
   const [search, setSearch] = useState({ pattern: "", class: "task" });
-  const [selectTask, setSelectTask] = useState({});
+  const [selectTask, setSelectTask] = useState();
+  const [multiSelectTask, setMultiSelectTask] = useState([]);
   const [excBtnDisable, setExcBtnDisable] = useState(true);
   // const [checked, setChecked] = useState(false);
 
-  // console.log(selectTask);
+  // console.log(apiTaskLog);
   // console.log("search", search);
 
   const radioOnChange = (data) => {
     // setChecked(!checked)
-    console.log(data);
+    // console.log(data);
     setExcBtnDisable(false);
-    setSelectTask(data);
+    setSelectTask(data)
   };
 
   const getApiTask = async () => {
@@ -62,10 +64,33 @@ const ValidationTasks = () => {
       const res = await getApiData("/execTask", {
         task: selectTask?.task_name,
       });
-      // console.log(res?.data);
+      console.log(res);
       setApiTaskLog(res?.data);
       toast.success("Execute Successfully");
     } catch (error) {
+      // console.log(error);
+    }finally{
+      setLoading(false);
+    }
+  };
+
+  const getApiMultiLog = async (e) => {
+    e.preventDefault()
+    try {
+      setLoading(true);
+      setTimeout(()=>{
+        setLoading(false);
+        navigate('/taskhistory')
+      },5000)
+      toast.info("Batch Task Started")
+      const res = await getApiData("/execTaskMulti", {
+        tasks: multiSelectTask
+      });
+      // console.log(res);
+      // setApiTaskLog(res?.data);
+      toast.success("Execute Successfully");
+    } catch (error) {
+      toast.error("Error");
       // console.log(error);
     }finally{
       setLoading(false);
@@ -108,6 +133,19 @@ const ValidationTasks = () => {
     }
   };
 
+  const checkboxValue =(e)=>{
+    setExcBtnDisable(false);
+    const value =e.target.value
+    const checked =e.target.checked
+    if(checked){
+    setMultiSelectTask([...multiSelectTask , e.target.value])
+    }
+    else{
+      setMultiSelectTask(multiSelectTask.filter((e)=>(e!== value)))
+    }
+  }
+  // console.log(multiSelectTask);
+
   return (
     <div className="container mt-3">
       <div className="row ">
@@ -139,7 +177,7 @@ const ValidationTasks = () => {
                   <ToastContainer />
                   <div
                     className="col-md-10 d-flex align-items-center"
-                    style={{ "justify-content": "space-between" }}
+                    style={{ justifyContent: "space-between" }}
                   >
                     <div className="m-3">
 
@@ -179,11 +217,14 @@ const ValidationTasks = () => {
                         id="dropdown-basic-button"
                         title="Action"
                       >
-                        <Dropdown.Item disabled={excBtnDisable} onClick={getApiLog}>Execute</Dropdown.Item>
+                        <Dropdown.Item disabled={excBtnDisable} 
+                        // onClick={getApiLog}
+                        onClick={getApiMultiLog}
+                        >Execute</Dropdown.Item>
                         <Dropdown.Item>
                         <Link
                             to={"createtask"}
-                            style={{ "text-decoration": "none" }}
+                            style={{ textDecoration: "none" }}
                             >
                             
                             Create Task
@@ -223,13 +264,13 @@ const ValidationTasks = () => {
                 </div>
                 {loading && <Loading/>}
 
-                {apiTaskLog && (
+                {/* {apiTaskLog && (
                   <ValidationLog
                     data={apiTaskLog}
                     fileName={selectTask?.task_name}
                     setApiTaskLog={setApiTaskLog}
                   />
-                )}
+                )} */}
                 <div className="row ">
                   <table className="table p-2 table-responsive table-bordered border-dark  ">
                     <tr className=" table-active table-head text-center">
@@ -245,13 +286,14 @@ const ValidationTasks = () => {
                       : apiJsonData?.map((item, i) => (
                           <tr key={i}>
                             <td>
-                              <div>
+                              <div style={{"accent-color": "#46ff76"}}>
                                 <input
-                                  type="radio"
-                                  name="task"
-                                  onChange={(e) => radioOnChange(item)}
+                                  type="checkbox"
+                                  name="tasks"
+                                  // onChange={(e) => radioOnChange(item)} //--
                                   // value={item?.task_name}
-                                  value={item}
+                                  onChange={checkboxValue}
+                                  value={item?.task_name}
                                   // checked={checked}
                                 />
                               </div>
