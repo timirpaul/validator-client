@@ -77,6 +77,7 @@ const ValidationTasks = () => {
   const getApiMultiLog = async (e) => {
     e.preventDefault()
     try {
+      if(multiSelectTask.length >5) return toast.error("maximum 5 task can execute!!");
       setLoading(true);
       setTimeout(()=>{
         setLoading(false);
@@ -144,7 +145,7 @@ const ValidationTasks = () => {
       setMultiSelectTask(multiSelectTask.filter((e)=>(e!== value)))
     }
   }
-  // console.log(multiSelectTask);
+  // console.log(multiSelectTask.length);
 
   return (
     <div className="container mt-3">
