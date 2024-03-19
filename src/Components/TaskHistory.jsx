@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { lightTheme } from "../utils/Color";
 import Sidebar from "./Sidebar";
-import axios from "axios";
 import { getApiData } from "../apidata/api";
 import UserLogoutCard from "./UserLogoutCard";
 import SearchCard from "./SearchCard";
-import download from "../img/download.ico"
-import { Clock, Download, Loader } from 'react-feather';
+import { Clock, Download } from 'react-feather';
 
 const TaskHistory = () => {
   const [data, setData] = useState({});
   const [apiJsonData, setApiJsonData] = useState([]);
-    const [search, setSearch] = useState({pattern:'' , class:'hist'});
+  const [search, setSearch] = useState({pattern:'' , class:'hist'});
 
 
   const getTaskHistory = async()=>{

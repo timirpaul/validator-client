@@ -40,7 +40,7 @@ function App() {
             <Route exact path="/validationTasks/createtask" element={<CreateTask />}/>
             <Route exact path="/taskhistory" element={<TaskHistory />} />
           </Route>
-            <Route exact path="/test" element={<Test />} />
+            {/* <Route exact path="/test" element={<Test />} /> */}
           <Route path="/*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
