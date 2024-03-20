@@ -2,6 +2,7 @@ import React from "react";
 import { lightTheme } from "../utils/Color";
 import Sidebar from "./Sidebar";
 import validatorLogo from "../img/validator.png";
+import landing_img from "../img/landing_img.png";
 
 const Landing = () => {
   return (
@@ -18,16 +19,16 @@ const Landing = () => {
           // className="row col-md-9 p-8"
           style={{ backgroundColor: lightTheme.lightyellow }}
         >
-          <div>
+          {/* <div>
           <h1>Welcome To </h1>
           <h1>Data Validator Console </h1>
-          </div>
-          {/* <img
-            src={validatorLogo}
-            alt="login form"
+          </div> */}
+          <img
+            src={landing_img}
+            alt="landing form"
             className="img-fluid"
-            style={{ borderRadius: "1rem 0 0 1rem" }}
-          /> */}
+            style={{height: "100%",width: "100%" }}
+          />
         </div>
       </div>
     </div>
