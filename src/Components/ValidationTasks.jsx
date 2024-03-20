@@ -77,7 +77,7 @@ const ValidationTasks = () => {
   const getApiMultiLog = async (e) => {
     e.preventDefault()
     try {
-      if(multiSelectTask.length >5) return toast.error("maximum 5 task can execute!!");
+      if(multiSelectTask.length >5) return toast.error("Maximum 5 Tasks are allowwed in Batch...!!");
       setLoading(true);
       setTimeout(()=>{
         setLoading(false);
@@ -87,7 +87,7 @@ const ValidationTasks = () => {
       const res = await getApiData("/execTaskMulti", {
         tasks: multiSelectTask
       });
-      // console.log(res);
+      console.log(res?.data?.ERROR);
       // setApiTaskLog(res?.data);
       toast.success("Execute Successfully");
     } catch (error) {

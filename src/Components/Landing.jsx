@@ -19,7 +19,7 @@ const Landing = () => {
           style={{ backgroundColor: lightTheme.lightyellow }}
         >
           <div>
-          <h1>Welcome </h1>
+          <h1>Welcome To </h1>
           <h1>Data Validator Console </h1>
           </div>
           {/* <img
