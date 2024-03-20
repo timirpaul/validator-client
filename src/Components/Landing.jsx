@@ -12,7 +12,7 @@ const Landing = () => {
           className="col-md-3"
           style={{ backgroundColor: lightTheme.lightBlue }}
         >
-          <Sidebar name="Landing Page" />
+          <Sidebar name="Dashboard" />
         </div>
         <div
           className="d-flex col-md-9  text-center align-items-center justify-content-center "

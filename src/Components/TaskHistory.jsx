@@ -43,7 +43,7 @@ const TaskHistory = () => {
           className="col-md-3"
           style={{ backgroundColor: lightTheme.lightBlue }}
         >
-          <Sidebar name="Landing Page" />
+          <Sidebar name="Task History" />
         </div>
         <div
           className=" col-md-9  "

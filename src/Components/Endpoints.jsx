@@ -96,7 +96,7 @@ const Endpoints = () => {
           className="col-md-3"
           style={{ backgroundColor: lightTheme.lightBlue }}
         >
-          <Sidebar name="Endpoints Page" />
+          <Sidebar name="Endpoints" />
         </div>
         <div
           className=" col-md-9  "

@@ -92,7 +92,7 @@ const Home = () => {
                             style={{ color: "#ff6219" }}
                           />
                           <span className="h1 fw-bold mb-0">
-                            Data Validator
+                            <h2 className="text-bold">Data Validator Services</h2>
                           </span>
                         </div>
                         {invalidLogin && (
