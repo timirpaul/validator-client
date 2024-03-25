@@ -86,7 +86,7 @@ const EndpointsCard = () => {
   }
 
   // console.log(post);
-  console.log(apiJsonData);
+  // console.log(apiJsonData);
   return (
     <div className="container mt-3">
       <div className="row ">

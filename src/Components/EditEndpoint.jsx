@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {  useLocation, useNavigate } from "react-router-dom";
 import {
   MDBDropdown,
@@ -20,18 +20,14 @@ const EditEndpoint = () => {
 
   const navigate = useNavigate()
 
-  const [apiJsonData, setApiJsonData] = useState([]);
-
-
   const [post, setPost] = useState({
     id:data?.secret_id ,
     name: data?.endpoint_name,
     type: data?.database_type,
+    // toggleOption: data?.endpoint_type,
     toggleOption: data?.endpoint_type,
     input: JSON.stringify(data?.endpoint_json),
   });
-
-
 
 
 
@@ -40,9 +36,7 @@ const EditEndpoint = () => {
     setPost({ ...post, [e.target.name]: e.target.value });
   };
 
-  const radioOnChange = async(e) => {
-    setPost({ ...post, [e.target.name]: e.target.value });
-  };
+
 
   const handleEdit =async()=>{
     try {
@@ -81,9 +75,8 @@ const EditEndpoint = () => {
     }
   }
 
-  console.log("post",post);
-  console.log("postJSON",JSON.parse(post.input));
-  console.log(apiJsonData);
+  // console.log("post",post?.toggleOption);
+  // console.log("post",post);
   return (
     <div className="container mt-3">
       <div className="row ">
@@ -123,33 +116,15 @@ const EditEndpoint = () => {
                     >
                       <h6 style={{"width":"30%"}}>Endpoints Type </h6>
                       <div className="d-flex justify-content-center">
-                        <input
-                          type="radio"
-                          id="source"
-                          name="toggleOption"
-                          // onChange={radioOnChange}
-                          value="Source"
-                        />
+                        
+                        
                         <label
                           style={{ color: "#D61A0C", fontWeight: "bold" ,"padding-left": "20px"}}
                         >
-                          Source
+                          {post?.toggleOption=== "Sink" ? "Target" :post?.toggleOption}
                         </label>
                       </div>
-                      <div className="d-flex justify-content-end" style={{"width":"30%"}}>
-                        <input
-                          type="radio"
-                          id="target"
-                          name="toggleOption"
-                          // onChange={radioOnChange}
-                          value="Sink"
-                        />
-                        <label
-                          style={{ color: "#D61A0C", fontWeight: "bold" ,"padding-left": "20px" }}
-                        >
-                          Target
-                        </label>
-                      </div>
+                     
                     </div>
 
                     <div

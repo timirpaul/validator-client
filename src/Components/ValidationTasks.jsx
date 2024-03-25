@@ -17,8 +17,9 @@ import { getApiData } from "../apidata/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SearchCard from "./SearchCard";
-import { Trash2 } from "react-feather";
+import { Edit, Trash2 } from "react-feather";
 import Popup from "./Popup";
+import Popup_edit from "./Popup_edit";
 
 const ValidationTasks = () => {
   const navigate = useNavigate();
@@ -307,8 +308,18 @@ const ValidationTasks = () => {
                                 data-bs-target="#exampleModal"
                               >
                                 <Trash2 />
+                                
                               </div>
+                              {/* <div
+                                className=" btn-primary"
+                                data-bs-toggle="modal"
+                                data-bs-target="#exampleModal_edit"
+                              >
+                                
+                                <Edit />
+                              </div> */}
                               <Popup task_id={item?.task_id} deleteFunction={deleteFunction}/>
+                              {/* <Popup_edit/> */}
                             </td>
                           </tr>
                         ))}
