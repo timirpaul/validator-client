@@ -1,9 +1,11 @@
 import {configureStore} from "@reduxjs/toolkit"
 import loginCheckerReducer from "../reducers/loginSlice"
+import selectEndpointReducer from "../reducers/selectSlice"
 
 const store = configureStore({
     reducer: {
-        loginChecker: loginCheckerReducer
+        loginChecker: loginCheckerReducer,
+        selectEndpoint : selectEndpointReducer
     }
 });
 

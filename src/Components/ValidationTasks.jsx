@@ -17,29 +17,23 @@ import { getApiData } from "../apidata/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SearchCard from "./SearchCard";
+import { Trash2 } from "react-feather";
+import Popup from "./Popup";
 
 const ValidationTasks = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({});
 
   const [apiJsonData, setApiJsonData] = useState([]);
-  const [apiTaskLog, setApiTaskLog] = useState();
+  const [apiTaskLog, setApiTaskLog] = useState("");
   const [search, setSearch] = useState({ pattern: "", class: "task" });
-  const [selectTask, setSelectTask] = useState();
   const [multiSelectTask, setMultiSelectTask] = useState([]);
   const [excBtnDisable, setExcBtnDisable] = useState(true);
   // const [checked, setChecked] = useState(false);
 
-  // console.log(apiTaskLog);
+  console.log(apiJsonData);
   // console.log("search", search);
-
-  const radioOnChange = (data) => {
-    // setChecked(!checked)
-    // console.log(data);
-    setExcBtnDisable(false);
-    setSelectTask(data)
-  };
 
   const getApiTask = async () => {
     try {
@@ -57,68 +51,53 @@ const ValidationTasks = () => {
   }, []);
 
   // console.log(loading);
-  const getApiLog = async (e) => {
-    e.preventDefault()
-    try {
-      setLoading(true);
-      const res = await getApiData("/execTask", {
-        task: selectTask?.task_name,
-      });
-      console.log(res);
-      setApiTaskLog(res?.data);
-      toast.success("Execute Successfully");
-    } catch (error) {
-      // console.log(error);
-    }finally{
-      setLoading(false);
-    }
-  };
 
   const getApiMultiLog = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      if(multiSelectTask.length >5) return toast.error("Maximum 5 Tasks are allowwed in Batch...!!");
+      if (multiSelectTask.length > 5)
+        return toast.error("Maximum 5 Tasks are allowwed in Batch...!!");
       setLoading(true);
-      setTimeout(()=>{
+      setTimeout(() => {
         setLoading(false);
-        navigate('/taskhistory')
-      },5000)
-      toast.info("Batch Task Started")
+        navigate("/taskhistory");
+      }, 5000);
+      toast.info("Batch Task Started");
       const res = await getApiData("/execTaskMulti", {
-        tasks: multiSelectTask
+        tasks: multiSelectTask,
       });
       console.log(res?.data?.ERROR);
-      // setApiTaskLog(res?.data);
       toast.success("Execute Successfully");
     } catch (error) {
       toast.error("Error");
       // console.log(error);
-    }finally{
+    } finally {
       setLoading(false);
     }
   };
 
   const editFunction = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
       console.log("editFunction click");
     } catch (error) {
       console.log(error);
     }
   };
-  const deleteFunction = async (e) => {
-    e.preventDefault()
-    try {
-      // console.log("deleteFunction click", selectTask?.task_id);
-      const res = await getApiData("/delTasks", { id: selectTask?.task_id });
-      // console.log(res?.data);
-      await getApiTask();
-      // console.log(apiJsonData);
-      toast.success(res?.data?.message);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const deleteFunction = async (e) => {
+  //   e.preventDefault()
+  //   try {
+  //     // console.log("deleteFunction click", selectTask?.task_id);
+  //     // const res = await getApiData("/delTasks", { id: selectTask?.task_id });
+  //     // console.log(res?.data);
+  //     await getApiTask();
+  //     // console.log(apiJsonData);
+  //     // toast.success(res?.data?.message);
+  //     toast.info("Not Implemented..!!");
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -134,18 +113,31 @@ const ValidationTasks = () => {
     }
   };
 
-  const checkboxValue =(e)=>{
+  const checkboxValue = (e) => {
     setExcBtnDisable(false);
-    const value =e.target.value
-    const checked =e.target.checked
-    if(checked){
-    setMultiSelectTask([...multiSelectTask , e.target.value])
+    const value = e.target.value;
+    const checked = e.target.checked;
+    // console.log(checked);
+    if (checked) {
+      setMultiSelectTask([...multiSelectTask, value]);
+    } else {
+      setMultiSelectTask(multiSelectTask.filter((e) => e !== value));
     }
-    else{
-      setMultiSelectTask(multiSelectTask.filter((e)=>(e!== value)))
+  };
+
+  const deleteFunction = async (e, id) => {
+    e.preventDefault();
+    try {
+      console.log("deleteFunction click", id);
+      const res = await getApiData("/delTasks", { id: id });
+      console.log(res?.data);
+      toast.success(res?.data?.message);
+      await getApiTask();  
+    } catch (error) {
+      console.log(error);
     }
-  }
-  // console.log(multiSelectTask.length);
+  };
+  console.log("multi", multiSelectTask);
 
   return (
     <div className="container mt-3">
@@ -181,7 +173,6 @@ const ValidationTasks = () => {
                     style={{ justifyContent: "space-between" }}
                   >
                     <div className="m-3">
-
                       {/* <MDBDropdown>
                         <MDBDropdownToggle tag="a" className="btn btn-primary">
                           Action
@@ -211,30 +202,23 @@ const ValidationTasks = () => {
                         </MDBDropdownMenu>
                       </MDBDropdown> */}
 
-
-
-
-                      <DropdownButton
-                        id="dropdown-basic-button"
-                        title="Action"
-                      >
-                        <Dropdown.Item disabled={excBtnDisable} 
-                        // onClick={getApiLog}
-                        onClick={getApiMultiLog}
-                        >Execute</Dropdown.Item>
+                      <DropdownButton id="dropdown-basic-button" title="Action">
+                        <Dropdown.Item
+                          disabled={excBtnDisable}
+                          // onClick={getApiLog}
+                          onClick={getApiMultiLog}
+                        >
+                          Execute
+                        </Dropdown.Item>
                         <Dropdown.Item>
-                        <Link
+                          <Link
                             to={"createtask"}
                             style={{ textDecoration: "none" }}
-                            >
-                            
+                          >
                             Create Task
                           </Link>
-                          </Dropdown.Item>
-                        <Dropdown.Item disabled={excBtnDisable} onClick={deleteFunction}>Delete</Dropdown.Item>
+                        </Dropdown.Item>
                       </DropdownButton>
-
-
                     </div>
                     {/* <SearchCard search={search} setSearch={setSearch} setApiJsonData={setApiJsonData}/> */}
                     <form
@@ -263,7 +247,7 @@ const ValidationTasks = () => {
                     </form>
                   </div>
                 </div>
-                {loading && <Loading/>}
+                {loading && <Loading />}
 
                 {/* {apiTaskLog && (
                   <ValidationLog
@@ -281,18 +265,18 @@ const ValidationTasks = () => {
                       <th>Source DB</th>
                       <th>Sink DB</th>
                       <th>Sink Table</th>
+                      <th>Delete</th>
                     </tr>
                     {!apiJsonData?.length
                       ? "No Data Found"
                       : apiJsonData?.map((item, i) => (
                           <tr key={i}>
                             <td>
-                              <div style={{"accent-color": "#46ff76"}}>
+                              <div style={{ "accent-color": "#46ff76" }}>
                                 <input
                                   type="checkbox"
                                   name="tasks"
                                   // onChange={(e) => radioOnChange(item)} //--
-                                  // value={item?.task_name}
                                   onChange={checkboxValue}
                                   value={item?.task_name}
                                   // checked={checked}
@@ -300,7 +284,7 @@ const ValidationTasks = () => {
                               </div>
                             </td>
                             <td>
-                              <div >{item?.task_name}</div>
+                              <div>{item?.task_name}</div>
                             </td>
                             <td>
                               <div>{item?.source_table}</div>
@@ -313,6 +297,18 @@ const ValidationTasks = () => {
                             </td>
                             <td>
                               <div>{item?.sink_table}</div>
+                            </td>
+                            <td>
+                              {/* <div onClick={(e)=>deleteFunction(e ,item?.task_id)}><Trash2/></div> */}
+                              {/* <!-- Button trigger modal --> */}
+                              <div
+                                className=" btn-primary"
+                                data-bs-toggle="modal"
+                                data-bs-target="#exampleModal"
+                              >
+                                <Trash2 />
+                              </div>
+                              <Popup task_id={item?.task_id} deleteFunction={deleteFunction}/>
                             </td>
                           </tr>
                         ))}

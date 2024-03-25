@@ -117,6 +117,9 @@ a {
   color: black;
 }
 
+.table{
+  --bs-table-bg:#ffffff00 !important;
+}
 
 
 

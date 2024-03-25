@@ -14,6 +14,7 @@ import Private from "./private/Private";
 // import Test from "./Components/Test";
 import { login } from "./reducers/loginSlice";
 import { useEffect } from "react";
+import EditEndpoint from "./Components/EditEndpoint";
 function App() {
   const dispatch = useDispatch()
 
@@ -21,7 +22,7 @@ function App() {
     // console.log(windowLogin);
     if(windowLogin) {
       dispatch(login())
-      
+
     }
 
   const islogin = useSelector((state) => state.loginChecker.value);
@@ -36,6 +37,7 @@ function App() {
             <Route exact path="/landing" element={<Landing />} />
             <Route exact path="/endpoints" element={<Endpoints />} />
             <Route exact path="endpoints/endpointscard" element={<EndpointsCard />} />
+            <Route exact path="endpoints/editendpoint" element={<EditEndpoint />} />
             <Route exact path="/validationTasks" element={<ValidationTasks />} />
             <Route exact path="/validationTasks/createtask" element={<CreateTask />}/>
             <Route exact path="/taskhistory" element={<TaskHistory />} />

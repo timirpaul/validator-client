@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {  useNavigate } from "react-router-dom";
+import {  useLocation, useNavigate } from "react-router-dom";
 import {
   MDBDropdown,
   MDBDropdownMenu,
@@ -12,7 +12,11 @@ import { getApiData } from "../apidata/api";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const EndpointsCard = () => {
+const EditEndpoint = () => {
+
+    const location =useLocation()
+    const data = location.state
+  console.log("parseData",data);
 
   const navigate = useNavigate()
 
@@ -20,26 +24,16 @@ const EndpointsCard = () => {
 
 
   const [post, setPost] = useState({
-    name: "",
-    type: 'Select Type',
-    toggleOption: "",
-    input: "",
+    id:data?.secret_id ,
+    name: data?.endpoint_name,
+    type: data?.database_type,
+    toggleOption: data?.endpoint_type,
+    input: JSON.stringify(data?.endpoint_json),
   });
 
-  const getDbType =async ()=>{
-    try {
-      const res = await getApiData("/getDBtype",{"ep_type":post?.toggleOption})
-      console.log(res?.data);
-      if(res?.data?.ERROR) return toast.error(res?.data?.ERROR)
-      setApiJsonData(res?.data)
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
-  useEffect(()=>{
-    getDbType()
-  },[post?.toggleOption])
+
+
 
   const handleInputChange = (e) => {
     e.preventDefault();
@@ -50,14 +44,16 @@ const EndpointsCard = () => {
     setPost({ ...post, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit =async()=>{
+  const handleEdit =async()=>{
     try {
       console.log("save");
       // console.log(JSON.parse(post.input));
-      const res = await getApiData("/creSecrets",{endpoint_name:post?.name ,database_type:post?.type ,endpoint_type:post?.toggleOption,
-        endpoint_json:JSON.parse(post.input)
+      const res = await getApiData("/updSecrets",{
+        id:post?.id ,
+        endpoint_json:JSON.parse(post.input),
+        endpoint_name:post?.name 
       })
-      // console.log(res?.data?.ERROR);
+      console.log(res?.data);
       if(res?.data?.ERROR){
         toast.error(res?.data?.ERROR)
       }else{
@@ -85,7 +81,8 @@ const EndpointsCard = () => {
     }
   }
 
-  // console.log(post);
+  console.log("post",post);
+  console.log("postJSON",JSON.parse(post.input));
   console.log(apiJsonData);
   return (
     <div className="container mt-3">
@@ -130,7 +127,7 @@ const EndpointsCard = () => {
                           type="radio"
                           id="source"
                           name="toggleOption"
-                          onChange={radioOnChange}
+                          // onChange={radioOnChange}
                           value="Source"
                         />
                         <label
@@ -144,7 +141,7 @@ const EndpointsCard = () => {
                           type="radio"
                           id="target"
                           name="toggleOption"
-                          onChange={radioOnChange}
+                          // onChange={radioOnChange}
                           value="Sink"
                         />
                         <label
@@ -167,7 +164,7 @@ const EndpointsCard = () => {
                           id="name"
                           name="name"
                           onChange={handleInputChange}
-                          value={post.name}
+                          value={post?.name}
                         />
                       </div>
                       <div className=" d-flex justify-content-center">
@@ -180,19 +177,6 @@ const EndpointsCard = () => {
                           >
                             {post?.type}
                           </MDBDropdownToggle>
-                          <MDBDropdownMenu>
-                            {apiJsonData?.map((item, i) => (
-                              <MDBDropdownItem
-                                key={i}
-                                link
-                                onClick={(e) => {
-                                  setPost({ ...post, type: item?.database_type });
-                                }}
-                              >
-                                {item?.database_type}
-                              </MDBDropdownItem>
-                            ))}
-                          </MDBDropdownMenu>
                         </MDBDropdown>
                       </div>
                     </div>
@@ -211,7 +195,7 @@ const EndpointsCard = () => {
                     </div>
                     <div className="col-md-10 mt-4 d-flex " style={{"justify-content":"space-around"}}>
                   <button className="btn btn-primary m-3" onClick={handleTest}> Test</button>
-                  <button className="btn btn-primary m-3" onClick={handleSubmit} > Save</button>
+                  <button className="btn btn-primary m-3" onClick={handleEdit} > Update</button>
                   <button className="btn btn-primary m-3" onClick={(e)=>navigate("/endpoints")}>Cancel</button>
                 </div>
                   </div>
@@ -225,4 +209,4 @@ const EndpointsCard = () => {
   );
 };
 
-export default EndpointsCard;
+export default EditEndpoint;

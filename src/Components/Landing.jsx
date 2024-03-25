@@ -3,6 +3,7 @@ import { lightTheme } from "../utils/Color";
 import Sidebar from "./Sidebar";
 import validatorLogo from "../img/validator.png";
 import landing_img from "../img/landing_img.png";
+import console_img from "../img/console_img.png";
 
 const Landing = () => {
   return (
@@ -24,7 +25,7 @@ const Landing = () => {
           <h1>Data Validator Console </h1>
           </div> */}
           <img
-            src={landing_img}
+            src={console_img}
             alt="landing form"
             className="img-fluid"
             style={{height: "100%",width: "100%" }}

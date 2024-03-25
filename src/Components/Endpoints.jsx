@@ -11,13 +11,17 @@ import {
 } from "mdb-react-ui-kit";
 import axios from "axios";
 import UserLogoutCard from "./UserLogoutCard";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getApiData } from "../apidata/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SearchCard from "./SearchCard";
 
+
 const Endpoints = () => {
+
+  const navigate = useNavigate()
+
   const [apiJsonData, setApiJsonData] = useState([]);
   const [selectEndpoint, setSelectEndpoint] = useState();
   const [btnDisable, setBtnDisable] = useState(true);
@@ -85,6 +89,16 @@ const Endpoints = () => {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  const editFunction = async (e)=>{
+      e.preventDefault()
+      try {
+        console.log("edit", selectEndpoint);
+        navigate("editendpoint" ,{state:{...selectEndpoint}})
+      } catch (error) {
+        console.log(error);
+      }
   }
 
   // console.log(apiJsonData);
@@ -158,7 +172,7 @@ const Endpoints = () => {
                         title="Action"
                       >
                         <Dropdown.Item disabled={btnDisable} onClick={handleTest}>Test</Dropdown.Item>
-                        <Dropdown.Item to="endpointscard">
+                        <Dropdown.Item to="/endpointscard">
                         <Link
                             to="endpointscard"
                             style={{ "text-decoration": "none" }}
@@ -166,7 +180,7 @@ const Endpoints = () => {
                           Create Endpoint
                           </Link>
                           </Dropdown.Item>
-                        <Dropdown.Item disabled={btnDisable}>Edit</Dropdown.Item>
+                        <Dropdown.Item disabled={btnDisable} onClick={editFunction}>Edit</Dropdown.Item>
                         <Dropdown.Item disabled={btnDisable} onClick={deleteFunction}>Delete</Dropdown.Item>
                       </DropdownButton>
 
